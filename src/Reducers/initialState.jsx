@@ -1,3 +1,4 @@
 export default {
-  summary: {}
+  summary: {},
+  language: "en"
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import ButtonComponent from "../model/Buttons/ButtonModel";
+import MenuGrid from "../Grid/MenuGrid";
+import InputSelect from "../model/Forms/InputSelect";
 
 import { compose } from "recompose";
 import { connect } from "react-redux";
@@ -8,36 +9,40 @@ import { connect } from "react-redux";
 import { getSummary } from "../../Actions/Summary";
 
 function Home(props) {
-  const [summary, setSummary] = useState([]);
+  const [state, setState] = useState({
+    language: "en"
+  });
 
   useEffect(() => {
     props.getSummary();
-  }, []);
+    if (props.language) {
+      switch (props.language) {
+        case "en":
+          setState({ language: props.language });
+          break;
+        case "es":
+          setState({ language: props.language });
+          break;
+        case "de":
+          setState({ language: props.language });
+          break;
+        default:
+          break;
+      }
+    }
+  }, [props.language]);
 
   return (
     <React.Fragment>
-      <ButtonComponent
-        text="Building 👷‍♂️🛠"
-        containerStyle={{ textAlign: "center", paddingTop: "5%" }}
-        styles={{
-          backgroundColor: "yellow",
-          "&:hover": {
-            backgroundColor: "orange"
-          },
-          "&:active": {
-            backgroundColor: "yellow"
-          },
-          "&:focus": {
-            boxShadow: "0 0 0 0.2rem yellow"
-          }
-        }}
-      />
+      <InputSelect />
+      <MenuGrid language={state.language ? state.language : "en"} />
     </React.Fragment>
   );
 }
 
 const mapStateToProps = state => ({
-  summary: state.Summary.summary
+  summary: state.Summary.summary,
+  language: state.Language.language
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,1 +1,3 @@
 export const FETCH_SUMMARY = "FETCH_SUMMARY";
+
+export const SET_SINGLE_LANGUAGE = "SET_SINGLE_LANGUAGE";
