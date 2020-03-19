@@ -11,7 +11,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 
-function CardModel({
+function CardButtonsModel({
   stylesContainer,
   cardMediaStyles,
   cardMediaTitle,
@@ -19,7 +19,9 @@ function CardModel({
   cardContentStyles,
   cardContentTittle,
   cardContentText,
-  cardActionsStyle
+  cardActionsStyle,
+  textButtonA,
+  textButtonB
 }) {
   const useStyles = makeStyles({
     root: {
@@ -59,8 +61,8 @@ function CardModel({
             {cardContentText}
           </Typography>
           <CardActions className={classes.cardActions}>
-            <ButtonComponent text={"B1"} />
-            <ButtonComponent text={"B2"} />
+            <ButtonComponent text={textButtonA} />
+            <ButtonComponent text={textButtonB} />
           </CardActions>
         </CardContent>
       </CardActionArea>
@@ -68,4 +70,15 @@ function CardModel({
   );
 }
 
-export default CardModel;
+CardButtonsModel.propTypes = {
+  stylesContainer: PropTypes.object,
+  cardMediaStyles: PropTypes.object,
+  cardMediaTitle: PropTypes.string,
+  cardMediaSrc: PropTypes.string,
+  cardContentStyles: PropTypes.object,
+  cardContentTittle: PropTypes.string,
+  cardContentText: PropTypes.string,
+  cardActionsStyle: PropTypes.object
+};
+
+export default CardButtonsModel;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import MenuGrid from "../Grid/MenuGrid";
-import InputSelect from "../model/Forms/InputSelect";
+import InputSelectLanguage from "../model/Forms/InputSelectLanguage";
 
 import { compose } from "recompose";
 import { connect } from "react-redux";
@@ -34,7 +34,7 @@ function Home(props) {
 
   return (
     <React.Fragment>
-      <InputSelect />
+      <InputSelectLanguage />
       <MenuGrid language={state.language ? state.language : "en"} />
     </React.Fragment>
   );

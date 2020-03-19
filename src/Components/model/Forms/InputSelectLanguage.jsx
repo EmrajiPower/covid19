@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function InputSelect(props) {
+function InputSelectLanguage(props) {
   const classes = useStyles();
 
   const [language, setLanguage] = React.useState("en");
@@ -96,4 +96,4 @@ const mapDispatchToProps = dispatch => ({
 
 const combine = compose(connect(null, mapDispatchToProps));
 
-export default combine(InputSelect);
+export default combine(InputSelectLanguage);

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import CardModel from "../model/Card/CardModel";
+import CardIconsModel from "../model/Card/CardIconsModel";
+
+import IconSickeness from "../../img/sickness.svg";
+import IconHealed from "../../img/healed.svg";
 
 import withWidth from "@material-ui/core/withWidth";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,48 +21,48 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: "center",
     [theme.breakpoints.down("sm")]: {
-      height: "12rem"
+      height: "15rem"
     },
     [theme.breakpoints.up("sm")]: {
-      height: "12rem"
+      height: "15rem"
     },
     [theme.breakpoints.up("md")]: {
-      height: "12rem"
+      height: "15rem"
     },
     [theme.breakpoints.up("lg")]: {
-      height: "12rem"
+      height: "15rem"
     }
   },
   summary: {
     padding: theme.spacing(2),
     textAlign: "center",
     [theme.breakpoints.down("sm")]: {
-      height: "12rem"
+      height: "15rem"
     },
     [theme.breakpoints.up("sm")]: {
-      height: "12rem"
+      height: "15rem"
     },
     [theme.breakpoints.down("md")]: {
-      height: "12rem"
+      height: "15rem"
     },
     [theme.breakpoints.up("lg")]: {
-      height: "12rem"
+      height: "15rem"
     }
   },
   country: {
     padding: theme.spacing(2),
     textAlign: "center",
     [theme.breakpoints.down("sm")]: {
-      height: "12rem"
+      height: "15rem"
     },
     [theme.breakpoints.up("sm")]: {
-      height: "12rem"
+      height: "15rem"
     },
     [theme.breakpoints.down("md")]: {
-      height: "12rem"
+      height: "15rem"
     },
     [theme.breakpoints.up("lg")]: {
-      height: "12rem"
+      height: "15rem"
     }
   },
   daily: {
@@ -174,20 +177,20 @@ function MenuGrid(props) {
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.daily}>
-            <CardModel
+            <CardIconsModel
               stylesContainer={{
                 border: "2px solid black",
                 margin: "auto 30%",
                 height: "auto"
               }}
               cardMediaTitle={state.cardTitle}
-              cardMediaSrc={
-                "https://lh3.googleusercontent.com/proxy/WKp74ZahD5WY2UZoXdw3JcXQpcnE2l4cAMMnEMr1DqAj7PZ3ZAKMEKG9qnmml_62oM0nm2zWGb9jUOGFdIMi6KuRWo_9czECTQTGF61baz5Yy3wLPRj49_lLSlyQwU8wJXWt9e-ie3W2cRsN95z2UkRSgFscF4i0bnPvxNJatc24jaVyD3goTHdutKgr7ledGXWbZcOF8RaY5CdKdmJWdByw_CDJ"
-              }
               cardMediaStyles={{ height: "100%" }}
               cardContentTittle={state.cardContentTitle}
               cardContentText={state.cardContentText}
-              cardActionsStyle={{ display: "flex" }}
+              cardActionsStyle={{ backgroundColor: "purple" }}
+              iconA={IconSickeness}
+              iconB={IconHealed}
+              {...props}
             />
           </Paper>
         </Grid>

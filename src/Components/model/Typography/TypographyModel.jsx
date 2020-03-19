@@ -1,6 +1,9 @@
 import React from "react";
+
 import Typography from "@material-ui/core/Typography";
+
 import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 
 function TypographyModel({ styles, variant, text }) {
   const useStyles = makeStyles({
@@ -26,5 +29,10 @@ function TypographyModel({ styles, variant, text }) {
     </div>
   );
 }
+
+TypographyModel.propTypes = {
+  variant: PropTypes.string,
+  text: PropTypes.string
+};
 
 export default TypographyModel;
