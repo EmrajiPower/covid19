@@ -15,15 +15,15 @@ const StyleComponent = withStyles(theme => ({
   input: {
     borderRadius: 4,
     position: "relative",
-    backgroundColor: theme.palette.background.paper,
-    border: "1px solid #ced4da",
+    border: "1px solid #27496d",
     fontSize: 16,
+    backgroundColor: "#27496d",
     padding: "10px 26px 10px 12px",
     transition: theme.transitions.create(["border-color", "box-shadow"]),
     "&:focus": {
       borderRadius: 4,
       borderColor: "#80bdff",
-      boxShadow: "0 0 0 0.2rem rgba(0,22,225,.15)"
+      boxShadow: "0 0 0 0.2rem #27496d"
     }
   }
 }))(InputBase);

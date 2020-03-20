@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 import CardIconsModel from "../model/Card/CardIconsModel";
+import PieModel from "../model/Dashboards/PieModel";
 
 import IconSickeness from "../../img/sickness.svg";
 import IconHealed from "../../img/healed.svg";
+import AnimationLogo from "../../img/AnimationLogo";
 
 import withWidth from "@material-ui/core/withWidth";
 import { makeStyles } from "@material-ui/core/styles";
@@ -19,39 +21,42 @@ const useStyles = makeStyles(theme => ({
   },
   logo: {
     padding: theme.spacing(2),
+    backgroundColor: "#27496d",
     textAlign: "center",
     [theme.breakpoints.down("sm")]: {
-      height: "15rem"
+      height: "90%"
     },
     [theme.breakpoints.up("sm")]: {
-      height: "15rem"
+      height: "90%"
     },
     [theme.breakpoints.up("md")]: {
-      height: "15rem"
+      height: "90%"
     },
     [theme.breakpoints.up("lg")]: {
-      height: "15rem"
+      height: "90%"
     }
   },
   summary: {
     padding: theme.spacing(2),
     textAlign: "center",
+    backgroundColor: "#27496d",
     [theme.breakpoints.down("sm")]: {
-      height: "15rem"
+      height: "auto"
     },
     [theme.breakpoints.up("sm")]: {
-      height: "15rem"
+      height: "auto"
     },
     [theme.breakpoints.down("md")]: {
-      height: "15rem"
+      height: "auto"
     },
     [theme.breakpoints.up("lg")]: {
-      height: "15rem"
+      height: "auto"
     }
   },
   country: {
     padding: theme.spacing(2),
     textAlign: "center",
+    backgroundColor: "#27496d",
     [theme.breakpoints.down("sm")]: {
       height: "15rem"
     },
@@ -68,23 +73,28 @@ const useStyles = makeStyles(theme => ({
   daily: {
     padding: theme.spacing(2),
     textAlign: "center",
+    backgroundColor: "#27496d",
+    overflowY: "scroll",
+    "&::-webkit-scrollbar": {
+      display: "none"
+    },
     [theme.breakpoints.down("sm")]: {
-      height: "auto"
+      height: "16rem"
     },
     [theme.breakpoints.up("sm")]: {
-      height: "auto"
+      height: "16rem"
     },
     [theme.breakpoints.down("md")]: {
-      height: "auto"
+      height: "16rem"
     },
     [theme.breakpoints.up("lg")]: {
-      height: "auto"
+      height: "16rem"
     }
   }
 }));
 
 function MenuGrid(props) {
-  const [state, setState] = useState({
+  const [stateTitles, setStateTitles] = useState({
     logoText: "",
     sumaryText: "",
     countryText: "",
@@ -92,6 +102,13 @@ function MenuGrid(props) {
     cardContentTitle: "",
     cardContentText: ""
   });
+
+  const [stateDashboard, setStateDashboard] = useState({
+    confirmed: "",
+    recovered: "",
+    death: ""
+  });
+
   const [grid, setGrid] = useState(6);
 
   useEffect(() => {
@@ -119,36 +136,54 @@ function MenuGrid(props) {
       if (props.language) {
         switch (props.language) {
           case "en":
-            setState({
-              ...state,
-              logoText: "The Logo",
+            setStateTitles({
+              ...stateTitles,
+              logoText: "State of Coronavirus",
               sumaryText: "Summary Dashboards",
               countryText: "Select Country",
               cardTitle: "Api Daily",
               cardContentTitle: "Api Daily",
               cardContentText: "Here Im going to settup interesting data"
             });
+            setStateDashboard({
+              ...stateDashboard,
+              confirmed: "Confirmed",
+              recovered: "Recovered",
+              death: "Deaths"
+            });
             break;
           case "es":
-            setState({
-              ...state,
-              logoText: "El Logo",
+            setStateTitles({
+              ...stateTitles,
+              logoText: "Estado del Coronavirus",
               sumaryText: "Resumen en Dashboards",
               countryText: "Seleccionar Ciudad",
               cardTitle: "Api Diaria",
               cardContentTitle: "Api Diaria",
               cardContentText: "Aquì voy a configurar datos interesantes"
             });
+            setStateDashboard({
+              ...stateDashboard,
+              confirmed: "Confirmados",
+              recovered: "Recuperados",
+              death: "Muertos"
+            });
             break;
           case "de":
-            setState({
-              ...state,
-              logoText: "Das Logo",
+            setStateTitles({
+              ...stateTitles,
+              logoText: "Bundesstaat Coronavirus",
               sumaryText: "Zusammenfassung Dashboards",
               countryText: "Land auswählen",
               cardTitle: "Api Daily",
               cardContentTitle: "Api Daily",
               cardContentText: "Hier werde ich interessante Daten festlegen"
+            });
+            setStateDashboard({
+              ...stateDashboard,
+              confirmed: "Bestätigt",
+              recovered: "Wiederhergestellt",
+              death: "Todesfälle"
             });
             break;
           default:
@@ -167,28 +202,79 @@ function MenuGrid(props) {
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={grid}>
-          <Paper className={classes.logo}>{state.logoText}</Paper>
+          <Paper className={classes.logo}>
+            <AnimationLogo text={stateTitles.logoText} />
+          </Paper>
         </Grid>
         <Grid item xs={grid}>
-          <Paper className={classes.summary}>{state.sumaryText}</Paper>
+          <Paper className={classes.summary}>
+            <PieModel
+              title={stateTitles.sumaryText}
+              labels={[
+                stateDashboard.confirmed,
+                stateDashboard.recovered,
+                stateDashboard.death
+              ]}
+              values={[1, 15, 12]}
+              width={400}
+              height={350}
+            />
+          </Paper>
         </Grid>
         <Grid item xs={12}>
-          <Paper className={classes.country}>{state.countryText}</Paper>
+          <Paper className={classes.country}>{stateTitles.countryText}</Paper>
         </Grid>
         <Grid item xs={12}>
           <Paper className={classes.daily}>
             <CardIconsModel
               stylesContainer={{
-                border: "2px solid black",
                 margin: "auto 30%",
                 height: "auto"
               }}
-              cardMediaTitle={state.cardTitle}
+              cardMediaTitle={stateTitles.cardTitle}
               cardMediaStyles={{ height: "100%" }}
-              cardContentTittle={state.cardContentTitle}
-              cardContentText={state.cardContentText}
-              cardActionsStyle={{ backgroundColor: "purple" }}
+              cardContentTittle={stateTitles.cardContentTitle}
+              cardContentText={stateTitles.cardContentText}
+              cardActionsStyle={{ backgroundColor: "#0c7b93" }}
               iconA={IconSickeness}
+              {...props}
+            />
+            <CardIconsModel
+              stylesContainer={{
+                margin: "auto 30%",
+                height: "auto"
+              }}
+              cardMediaTitle={stateTitles.cardTitle}
+              cardMediaStyles={{ height: "100%" }}
+              cardContentTittle={stateTitles.cardContentTitle}
+              cardContentText={stateTitles.cardContentText}
+              cardActionsStyle={{ backgroundColor: "#00a8cc" }}
+              iconB={IconHealed}
+              {...props}
+            />
+            <CardIconsModel
+              stylesContainer={{
+                margin: "auto 30%",
+                height: "auto"
+              }}
+              cardMediaTitle={stateTitles.cardTitle}
+              cardMediaStyles={{ height: "100%" }}
+              cardContentTittle={stateTitles.cardContentTitle}
+              cardContentText={stateTitles.cardContentText}
+              cardActionsStyle={{ backgroundColor: "#0c7b93" }}
+              iconA={IconSickeness}
+              {...props}
+            />
+            <CardIconsModel
+              stylesContainer={{
+                margin: "auto 30%",
+                height: "auto"
+              }}
+              cardMediaTitle={stateTitles.cardTitle}
+              cardMediaStyles={{ height: "100%" }}
+              cardContentTittle={stateTitles.cardContentTitle}
+              cardContentText={stateTitles.cardContentText}
+              cardActionsStyle={{ backgroundColor: "#00a8cc" }}
               iconB={IconHealed}
               {...props}
             />

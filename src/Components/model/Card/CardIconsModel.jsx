@@ -41,8 +41,12 @@ function CardIconsModel({
     <React.Fragment>
       <Card className={classes.root}>
         <CardActionArea className={classes.cardActions}>
-          <img src={iconA} width={40} height={40} alt={iconA}></img>
-          <img src={iconB} width={40} height={40} alt={iconA}></img>
+          {!!iconA && (
+            <img src={iconA} width={40} height={40} alt={iconA}></img>
+          )}
+          {!!iconB && (
+            <img src={iconB} width={40} height={40} alt={iconA}></img>
+          )}
           <Container fixed></Container>
           <CardContent className={classes.cardContentStyles}>
             {!!cardContentTittle && (

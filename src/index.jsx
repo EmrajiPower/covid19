@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./Routes/index";
+import "./img/keyframes.css";
 
 import Reducers from "./Reducers/index";
 

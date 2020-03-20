@@ -1,0 +1,51 @@
+body {
+  background-color: #142850;
+}
+
+.rotate1 {
+  animation: rotation 20s infinite alternate;
+}
+
+.rotate2 {
+  animation: rotation 5s infinite alternate;
+  margin-top: 33%;
+}
+
+.rotate3 {
+  animation: rotation 9s infinite alternate;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg) translateY(0);
+  }
+  3% {
+    transform: rotate(45deg) translateY(3);
+  }
+  5% {
+    transform: rotate(80deg) translateY(-5px);
+  }
+  15% {
+    transform: rotate(110deg) translateY(5px);
+  }
+  25% {
+    transform: rotate(240deg) translateY(-5px);
+  }
+  45% {
+    transform: rotate(260deg) translateY(5px);
+  }
+  67% {
+    transform: rotate(290deg) translateY(-5px);
+  }
+  100% {
+    transform: rotate(359deg) translateY(-5px);
+  }
+}
+
+.shadowImpulse {
+  display: flex;
+  margin: inherit;
+}
+
+@keyframes blink {
+}
