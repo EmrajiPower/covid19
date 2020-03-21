@@ -7,8 +7,9 @@ body {
 }
 
 .rotate2 {
-  animation: rotation 5s infinite alternate;
-  margin-top: 33%;
+  animation: rotation 30s infinite alternate;
+  margin-top: 10%;
+  padding-left: 10%;
 }
 
 .rotate3 {
@@ -17,7 +18,7 @@ body {
 
 @keyframes rotation {
   0% {
-    transform: rotate(0deg) translateY(0);
+    transform: rotate(30deg) translateY(0);
   }
   3% {
     transform: rotate(45deg) translateY(3);
@@ -37,15 +38,17 @@ body {
   67% {
     transform: rotate(290deg) translateY(-5px);
   }
+  77% {
+    transform: rotate(300deg) translateY(5px);
+  }
+  87% {
+    transform: rotate(320deg) translateY(-5px);
+  }
   100% {
-    transform: rotate(359deg) translateY(-5px);
+    transform: rotate(380deg) translateY(5px);
   }
 }
 
 .shadowImpulse {
-  display: flex;
   margin: inherit;
-}
-
-@keyframes blink {
 }

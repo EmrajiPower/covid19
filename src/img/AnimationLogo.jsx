@@ -1,10 +1,11 @@
 import React from "react";
 
 import TypographyModel from "../Components/model/Typography/TypographyModel";
-import CovidIcon from "./Covid19.svg";
+import CovidIcon from "./virus.svg";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import SvgIcon from "@material-ui/core/SvgIcon";
 import "../img/keyframes.css";
 
 function AnimationLogo({ text }) {
@@ -13,7 +14,11 @@ function AnimationLogo({ text }) {
       <TypographyModel
         text={text}
         variant="h4"
-        styles={{ display: "flex", justifyContent: "flex-end" }}
+        styles={{
+          display: "flex",
+          justifyContent: "flex-end",
+          paddingBottom: "2rem"
+        }}
       />
       <Container className="shadowImpulse" maxWidth="sm">
         <img alt="1" width="120" className="rotate1" src={CovidIcon}></img>
