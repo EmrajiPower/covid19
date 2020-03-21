@@ -2,16 +2,6 @@ body {
   background-color: #142850;
 }
 
-.rotate1 {
-  animation: rotation 20s infinite alternate;
-}
-
-.rotate2 {
-  animation: rotation 30s infinite alternate;
-  margin-top: 10%;
-  padding-left: 10%;
-}
-
 .rotate3 {
   animation: rotation 9s infinite alternate;
 }
@@ -36,10 +26,10 @@ body {
     transform: rotate(260deg) translateY(5px);
   }
   67% {
-    transform: rotate(290deg) translateY(-5px);
+    transform: rotate(290deg) translateY(-10px);
   }
   77% {
-    transform: rotate(300deg) translateY(5px);
+    transform: rotate(300deg) translateY(3px);
   }
   87% {
     transform: rotate(320deg) translateY(-5px);

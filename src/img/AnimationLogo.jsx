@@ -3,9 +3,7 @@ import React from "react";
 import TypographyModel from "../Components/model/Typography/TypographyModel";
 import CovidIcon from "./virus.svg";
 
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import SvgIcon from "@material-ui/core/SvgIcon";
 import "../img/keyframes.css";
 
 function AnimationLogo({ text }) {
@@ -17,7 +15,7 @@ function AnimationLogo({ text }) {
         styles={{
           display: "flex",
           justifyContent: "flex-end",
-          paddingBottom: "2rem"
+          paddingBottom: "4rem"
         }}
       />
       <Container className="shadowImpulse" maxWidth="sm">
