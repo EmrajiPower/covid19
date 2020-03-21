@@ -21,8 +21,6 @@ function AnimationLogo({ text }) {
         }}
       />
       <Container className="shadowImpulse" maxWidth="sm">
-        <img alt="1" width="120" className="rotate1" src={CovidIcon}></img>
-        <img alt="2" width="100" className="rotate2" src={CovidIcon}></img>
         <img alt="3" width="140" className="rotate3" src={CovidIcon}></img>
       </Container>
     </React.Fragment>
