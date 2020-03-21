@@ -22,22 +22,24 @@ const useStyles = makeStyles(theme => ({
   logo: {
     padding: theme.spacing(2),
     backgroundColor: "#27496d",
+    marginLeft: "10%",
     textAlign: "center",
     [theme.breakpoints.down("sm")]: {
-      height: "90%"
+      height: "91%"
     },
     [theme.breakpoints.up("sm")]: {
-      height: "90%"
+      height: "91%"
     },
     [theme.breakpoints.up("md")]: {
-      height: "90%"
+      height: "91%"
     },
     [theme.breakpoints.up("lg")]: {
-      height: "90%"
+      height: "91%"
     }
   },
   summary: {
     padding: theme.spacing(2),
+    marginRight: "10%",
     textAlign: "center",
     backgroundColor: "#27496d",
     [theme.breakpoints.down("sm")]: {
@@ -53,8 +55,39 @@ const useStyles = makeStyles(theme => ({
       height: "auto"
     }
   },
+  summaryWidth: {
+    width: 350,
+    [theme.breakpoints.down("sm")]: {
+      width: 300
+    },
+    [theme.breakpoints.up("sm")]: {
+      width: 350
+    },
+    [theme.breakpoints.down("md")]: {
+      width: 350
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: 350
+    }
+  },
+  summaryHeight: {
+    height: 300,
+    [theme.breakpoints.down("sm")]: {
+      height: 100
+    },
+    [theme.breakpoints.up("sm")]: {
+      height: 200
+    },
+    [theme.breakpoints.down("md")]: {
+      height: 200
+    },
+    [theme.breakpoints.up("lg")]: {
+      height: 200
+    }
+  },
   country: {
     padding: theme.spacing(2),
+    margin: "0 5%",
     textAlign: "center",
     backgroundColor: "#27496d",
     [theme.breakpoints.down("sm")]: {
@@ -72,6 +105,7 @@ const useStyles = makeStyles(theme => ({
   },
   daily: {
     padding: theme.spacing(2),
+    margin: "0 5%",
     textAlign: "center",
     backgroundColor: "#27496d",
     overflowY: "scroll",
@@ -110,6 +144,8 @@ function MenuGrid(props) {
   });
 
   const [grid, setGrid] = useState(6);
+  const [summaryWidth, setSummaryWidth] = useState(450);
+  const [summaryHeight, setSummaryHeight] = useState(300);
 
   useEffect(() => {
     const listenWidth = () => {
@@ -117,15 +153,23 @@ function MenuGrid(props) {
         switch (props.width) {
           case "xs":
             setGrid(12);
+            setSummaryWidth(400);
+            setSummaryHeight(250);
             break;
           case "sm":
             setGrid(12);
+            setSummaryWidth(430);
+            setSummaryHeight(280);
             break;
           case "md":
             setGrid(6);
+            setSummaryWidth(430);
+            setSummaryHeight(280);
             break;
           case "lg":
             setGrid(6);
+            setSummaryWidth(450);
+            setSummaryHeight(300);
             break;
           default:
             break;
@@ -216,8 +260,8 @@ function MenuGrid(props) {
                 stateDashboard.death
               ]}
               values={[1, 15, 12]}
-              width={400}
-              height={350}
+              width={summaryWidth}
+              height={summaryHeight}
             />
           </Paper>
         </Grid>

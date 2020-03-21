@@ -14,7 +14,7 @@ function AnimationLogo({ text }) {
         variant="h4"
         styles={{
           display: "flex",
-          justifyContent: "flex-end",
+          justifyContent: "center",
           paddingBottom: "4rem"
         }}
       />
