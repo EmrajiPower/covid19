@@ -22,37 +22,43 @@ const useStyles = makeStyles(theme => ({
   logo: {
     padding: theme.spacing(2),
     backgroundColor: "#27496d",
-    marginLeft: "10%",
     textAlign: "center",
     [theme.breakpoints.down("sm")]: {
+      marginLeft: "0%",
       height: "91%"
     },
     [theme.breakpoints.up("sm")]: {
-      height: "91%"
+      height: "91%",
+      marginLeft: "0%"
     },
     [theme.breakpoints.up("md")]: {
-      height: "91%"
+      height: "91%",
+      marginLeft: "10%"
     },
     [theme.breakpoints.up("lg")]: {
-      height: "91%"
+      height: "91%",
+      marginLeft: "10%"
     }
   },
   summary: {
     padding: theme.spacing(2),
-    marginRight: "10%",
     textAlign: "center",
     backgroundColor: "#27496d",
     [theme.breakpoints.down("sm")]: {
+      marginRight: "0%",
       height: "auto"
     },
     [theme.breakpoints.up("sm")]: {
-      height: "auto"
+      height: "auto",
+      marginRight: "0%"
     },
     [theme.breakpoints.down("md")]: {
-      height: "auto"
+      height: "auto",
+      marginRight: "0%"
     },
     [theme.breakpoints.up("lg")]: {
-      height: "auto"
+      height: "auto",
+      marginRight: "10%"
     }
   },
   summaryWidth: {
@@ -153,18 +159,18 @@ function MenuGrid(props) {
         switch (props.width) {
           case "xs":
             setGrid(12);
-            setSummaryWidth(400);
-            setSummaryHeight(250);
+            setSummaryWidth(250);
+            setSummaryHeight(300);
             break;
           case "sm":
             setGrid(12);
-            setSummaryWidth(430);
-            setSummaryHeight(280);
+            setSummaryWidth(250);
+            setSummaryHeight(290);
             break;
           case "md":
             setGrid(6);
-            setSummaryWidth(430);
-            setSummaryHeight(280);
+            setSummaryWidth(400);
+            setSummaryHeight(300);
             break;
           case "lg":
             setGrid(6);
@@ -272,7 +278,7 @@ function MenuGrid(props) {
           <Paper className={classes.daily}>
             <CardIconsModel
               stylesContainer={{
-                margin: "auto 30%",
+                margin: "1rem 10%",
                 height: "auto"
               }}
               cardMediaTitle={stateTitles.cardTitle}
@@ -285,7 +291,7 @@ function MenuGrid(props) {
             />
             <CardIconsModel
               stylesContainer={{
-                margin: "auto 30%",
+                margin: "1rem 10%",
                 height: "auto"
               }}
               cardMediaTitle={stateTitles.cardTitle}
@@ -298,7 +304,7 @@ function MenuGrid(props) {
             />
             <CardIconsModel
               stylesContainer={{
-                margin: "auto 30%",
+                margin: "1rem 10%",
                 height: "auto"
               }}
               cardMediaTitle={stateTitles.cardTitle}
@@ -311,7 +317,7 @@ function MenuGrid(props) {
             />
             <CardIconsModel
               stylesContainer={{
-                margin: "auto 30%",
+                margin: "1rem 10%",
                 height: "auto"
               }}
               cardMediaTitle={stateTitles.cardTitle}

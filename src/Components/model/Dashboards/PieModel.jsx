@@ -9,7 +9,12 @@ class PieModel extends React.Component {
 
     return (
       <Plot
-        style={{ width: "100%", height: "100%" }}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          width: "100%",
+          height: "100%"
+        }}
         data={[
           {
             values,
