@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import CardIconsModel from "../model/Card/CardIconsModel";
 import PieModel from "../model/Dashboards/PieModel";
+import PieLegend from "../model/Dashboards/PieLegend";
 
 import IconSickeness from "../../img/sickness.svg";
 import IconHealed from "../../img/healed.svg";
@@ -93,25 +94,27 @@ const useStyles = makeStyles(theme => ({
   },
   country: {
     padding: theme.spacing(2),
-    margin: "0 5%",
     textAlign: "center",
     backgroundColor: "#27496d",
     [theme.breakpoints.down("sm")]: {
-      height: "15rem"
+      height: "16rem",
+      margin: "0 5%"
     },
     [theme.breakpoints.up("sm")]: {
-      height: "15rem"
+      height: "16rem",
+      margin: "0 5%"
     },
     [theme.breakpoints.down("md")]: {
-      height: "15rem"
+      height: "16rem",
+      margin: "0 10%"
     },
     [theme.breakpoints.up("lg")]: {
-      height: "15rem"
+      height: "16rem",
+      margin: "0 10%"
     }
   },
   daily: {
     padding: theme.spacing(2),
-    margin: "0 5%",
     textAlign: "center",
     backgroundColor: "#27496d",
     overflowY: "scroll",
@@ -119,16 +122,20 @@ const useStyles = makeStyles(theme => ({
       display: "none"
     },
     [theme.breakpoints.down("sm")]: {
-      height: "16rem"
+      height: "16rem",
+      margin: "0 5%"
     },
     [theme.breakpoints.up("sm")]: {
-      height: "16rem"
+      height: "16rem",
+      margin: "0 5%"
     },
     [theme.breakpoints.down("md")]: {
-      height: "16rem"
+      height: "16rem",
+      margin: "0 10%"
     },
     [theme.breakpoints.up("lg")]: {
-      height: "16rem"
+      height: "16rem",
+      margin: "0 10%"
     }
   }
 }));
@@ -145,8 +152,11 @@ function MenuGrid(props) {
 
   const [stateDashboard, setStateDashboard] = useState({
     confirmed: "",
+    confirmedCounter: null,
     recovered: "",
-    death: ""
+    recoveredCounter: null,
+    death: "",
+    deathCounter: null
   });
 
   const [grid, setGrid] = useState(6);
@@ -191,15 +201,18 @@ function MenuGrid(props) {
               logoText: "State of Coronavirus",
               sumaryText: "Summary Dashboards",
               countryText: "Select Country",
-              cardTitle: "Api Daily",
+              cardTitle: "confirmedApi Daily",
               cardContentTitle: "Api Daily",
               cardContentText: "Here Im going to settup interesting data"
             });
             setStateDashboard({
               ...stateDashboard,
               confirmed: "Confirmed",
+              confirmedCounter: 25,
               recovered: "Recovered",
-              death: "Deaths"
+              recoveredCounter: 20,
+              death: "Deaths",
+              deathCounter: 17
             });
             break;
           case "es":
@@ -215,8 +228,11 @@ function MenuGrid(props) {
             setStateDashboard({
               ...stateDashboard,
               confirmed: "Confirmados",
+              confirmedCounter: 25,
               recovered: "Recuperados",
-              death: "Muertos"
+              recoveredCounter: 20,
+              death: "Muertos",
+              deathCounter: 17
             });
             break;
           case "de":
@@ -232,8 +248,11 @@ function MenuGrid(props) {
             setStateDashboard({
               ...stateDashboard,
               confirmed: "Bestätigt",
+              confirmedCounter: 25,
+              death: "Todesfälle",
+              deathCounter: 17,
               recovered: "Wiederhergestellt",
-              death: "Todesfälle"
+              recoveredCounter: 20
             });
             break;
           default:
@@ -260,14 +279,21 @@ function MenuGrid(props) {
           <Paper className={classes.summary}>
             <PieModel
               title={stateTitles.sumaryText}
-              labels={[
-                stateDashboard.confirmed,
-                stateDashboard.recovered,
-                stateDashboard.death
+              values={[
+                stateDashboard.confirmedCounter,
+                stateDashboard.deathCounter,
+                stateDashboard.recoveredCounter
               ]}
-              values={[1, 15, 12]}
               width={summaryWidth}
               height={summaryHeight}
+            />
+            <PieLegend
+              confirmed={stateDashboard.confirmed}
+              confirmedCounter={stateDashboard.confirmedCounter}
+              deaths={stateDashboard.death}
+              deathCounter={stateDashboard.deathCounter}
+              recovered={stateDashboard.recovered}
+              recoveredCounter={stateDashboard.recoveredCounter}
             />
           </Paper>
         </Grid>

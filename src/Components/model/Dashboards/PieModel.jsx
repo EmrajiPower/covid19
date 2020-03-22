@@ -19,6 +19,7 @@ class PieModel extends React.Component {
           {
             values,
             labels,
+            showlegend: false,
             hole: 0.8,
             type: "pie"
           }
