@@ -13,6 +13,7 @@ function AnimationLogo({ text }) {
         text={text}
         variant="h4"
         styles={{
+          color: "antiquewhite",
           display: "flex",
           justifyContent: "center",
           paddingBottom: "4rem"

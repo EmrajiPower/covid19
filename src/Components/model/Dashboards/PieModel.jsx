@@ -20,8 +20,17 @@ class PieModel extends React.Component {
             values,
             labels,
             showlegend: false,
-            hole: 0.8,
-            type: "pie"
+            hole: 0.7,
+            type: "pie",
+            textfont: {
+              family: "Roboto",
+              size: 18,
+              color: "skyblue"
+            },
+            marker: {
+              colors: ["orange", "red", "green"]
+            },
+            textinfo: "none"
           }
         ]}
         config={{
@@ -36,7 +45,7 @@ class PieModel extends React.Component {
           font: {
             family: "Roboto",
             size: 15,
-            color: "black"
+            color: "antiquewhite"
           },
           legend: { orientation: "h" }
         }}

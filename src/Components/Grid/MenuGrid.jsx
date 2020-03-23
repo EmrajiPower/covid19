@@ -80,13 +80,13 @@ const useStyles = makeStyles(theme => ({
   summaryHeight: {
     height: 300,
     [theme.breakpoints.down("sm")]: {
-      height: 100
+      height: 80
     },
     [theme.breakpoints.up("sm")]: {
-      height: 200
+      height: 100
     },
     [theme.breakpoints.down("md")]: {
-      height: 200
+      height: 150
     },
     [theme.breakpoints.up("lg")]: {
       height: 200
@@ -199,7 +199,7 @@ function MenuGrid(props) {
             setStateTitles({
               ...stateTitles,
               logoText: "State of Coronavirus",
-              sumaryText: "Summary Dashboards",
+              sumaryText: "Summary",
               countryText: "Select Country",
               cardTitle: "confirmedApi Daily",
               cardContentTitle: "Api Daily",
@@ -212,14 +212,14 @@ function MenuGrid(props) {
               recovered: "Recovered",
               recoveredCounter: 20,
               death: "Deaths",
-              deathCounter: 17
+              deathCounter: 2
             });
             break;
           case "es":
             setStateTitles({
               ...stateTitles,
               logoText: "Estado del Coronavirus",
-              sumaryText: "Resumen en Dashboards",
+              sumaryText: "Resumen",
               countryText: "Seleccionar Ciudad",
               cardTitle: "Api Diaria",
               cardContentTitle: "Api Diaria",
@@ -232,14 +232,14 @@ function MenuGrid(props) {
               recovered: "Recuperados",
               recoveredCounter: 20,
               death: "Muertos",
-              deathCounter: 17
+              deathCounter: 2
             });
             break;
           case "de":
             setStateTitles({
               ...stateTitles,
               logoText: "Bundesstaat Coronavirus",
-              sumaryText: "Zusammenfassung Dashboards",
+              sumaryText: "Zusammenfassung",
               countryText: "Land auswählen",
               cardTitle: "Api Daily",
               cardContentTitle: "Api Daily",
@@ -250,7 +250,7 @@ function MenuGrid(props) {
               confirmed: "Bestätigt",
               confirmedCounter: 25,
               death: "Todesfälle",
-              deathCounter: 17,
+              deathCounter: 2,
               recovered: "Wiederhergestellt",
               recoveredCounter: 20
             });
@@ -279,6 +279,11 @@ function MenuGrid(props) {
           <Paper className={classes.summary}>
             <PieModel
               title={stateTitles.sumaryText}
+              labels={[
+                stateDashboard.confirmed,
+                stateDashboard.death,
+                stateDashboard.recovered
+              ]}
               values={[
                 stateDashboard.confirmedCounter,
                 stateDashboard.deathCounter,
