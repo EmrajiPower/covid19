@@ -3,6 +3,10 @@ import React, { useState, useEffect } from "react";
 import CardIconsModel from "../model/Card/CardIconsModel";
 import PieModel from "../model/Dashboards/PieModel";
 import PieLegend from "../model/Dashboards/PieLegend";
+import InputSelectCountry from "../model/Forms/InputSelectCountry";
+
+import { compose } from "recompose";
+import { connect } from "react-redux";
 
 import IconSickeness from "../../img/sickness.svg";
 import IconHealed from "../../img/healed.svg";
@@ -200,7 +204,7 @@ function MenuGrid(props) {
               ...stateTitles,
               logoText: "State of Coronavirus",
               sumaryText: "Summary",
-              countryText: "Select Country",
+              countryText: "Select your Country",
               cardTitle: "confirmedApi Daily",
               cardContentTitle: "Api Daily",
               cardContentText: "Here Im going to settup interesting data"
@@ -220,7 +224,7 @@ function MenuGrid(props) {
               ...stateTitles,
               logoText: "Estado del Coronavirus",
               sumaryText: "Resumen",
-              countryText: "Seleccionar Ciudad",
+              countryText: "Seleccionar tu País",
               cardTitle: "Api Diaria",
               cardContentTitle: "Api Diaria",
               cardContentText: "Aquì voy a configurar datos interesantes"
@@ -264,17 +268,19 @@ function MenuGrid(props) {
     listenLanguage();
   }, [props]);
 
-  //[Classes]//
   const classes = useStyles();
-  //[Classes]//
+  console.log("-->", props.country);
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
+        {/*Componente de Titulo y Logo */}
         <Grid item xs={grid}>
           <Paper className={classes.logo}>
             <AnimationLogo text={stateTitles.logoText} />
           </Paper>
         </Grid>
+        {/*Componente de Dashboard*/}
         <Grid item xs={grid}>
           <Paper className={classes.summary}>
             <PieModel
@@ -302,9 +308,34 @@ function MenuGrid(props) {
             />
           </Paper>
         </Grid>
+        {/*Componente de Selección de Ciudad */}
         <Grid item xs={12}>
-          <Paper className={classes.country}>{stateTitles.countryText}</Paper>
+          <Paper className={classes.country}>
+            {
+              <InputSelectCountry
+                formTitle={stateTitles.countryText}
+                formTitleStyle={{ color: "antiquewhite", display: "contents" }}
+                selectStyle={{
+                  color: "antiquewhite",
+                  "&:before": {
+                    borderColor: "#142850"
+                  },
+                  "&:after": {
+                    borderColor: "orange"
+                  }
+                }}
+                containerStyle={{
+                  paddingTop: "5%",
+                  minWidth: 120,
+                  maxWidth: 300,
+                  width: "25%",
+                  textAlign: "center"
+                }}
+              />
+            }
+          </Paper>
         </Grid>
+        {/*Componente de Noticias Diarias */}
         <Grid item xs={12}>
           <Paper className={classes.daily}>
             <CardIconsModel
@@ -366,4 +397,10 @@ function MenuGrid(props) {
   );
 }
 
-export default withWidth()(MenuGrid);
+const mapStateToProps = state => ({
+  country: state.Country.country
+});
+
+const combine = compose(connect(mapStateToProps, null));
+
+export default withWidth({ initialWidth: "lg" })(combine(MenuGrid));
