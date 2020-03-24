@@ -4,6 +4,8 @@ import CardIconsModel from "../model/Card/CardIconsModel";
 import PieModel from "../model/Dashboards/PieModel";
 import PieLegend from "../model/Dashboards/PieLegend";
 import InputSelectCountry from "../model/Forms/InputSelectCountry";
+import IconAvatarModel from "../model/Buttons/AvatarIconModel";
+import TypographyModel from "../model/Typography/TypographyModel";
 
 import { compose } from "recompose";
 import { connect } from "react-redux";
@@ -11,11 +13,16 @@ import { connect } from "react-redux";
 import IconSickeness from "../../img/sickness.svg";
 import IconHealed from "../../img/healed.svg";
 import AnimationLogo from "../../img/AnimationLogo";
+import YoutubeSearchedForIcon from "@material-ui/icons/YoutubeSearchedFor";
 
 import withWidth from "@material-ui/core/withWidth";
 import { makeStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
+import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
+
+import { handleClearCountry } from "../../Actions/Country";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -101,19 +108,19 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center",
     backgroundColor: "#27496d",
     [theme.breakpoints.down("sm")]: {
-      height: "16rem",
+      height: "auto",
       margin: "0 5%"
     },
     [theme.breakpoints.up("sm")]: {
-      height: "16rem",
+      height: "auto",
       margin: "0 5%"
     },
     [theme.breakpoints.down("md")]: {
-      height: "16rem",
+      height: "auto",
       margin: "0 10%"
     },
     [theme.breakpoints.up("lg")]: {
-      height: "16rem",
+      height: "auto",
       margin: "0 10%"
     }
   },
@@ -268,8 +275,13 @@ function MenuGrid(props) {
     listenLanguage();
   }, [props]);
 
+  const handleSearchCountry = () => {
+    props.handleClearCountry();
+  };
+
   const classes = useStyles();
-  console.log("-->", props.country);
+
+  const { country } = props;
 
   return (
     <div className={classes.root}>
@@ -311,7 +323,7 @@ function MenuGrid(props) {
         {/*Componente de Selección de Ciudad */}
         <Grid item xs={12}>
           <Paper className={classes.country}>
-            {
+            {!country ? (
               <InputSelectCountry
                 formTitle={stateTitles.countryText}
                 formTitleStyle={{ color: "antiquewhite", display: "contents" }}
@@ -332,7 +344,43 @@ function MenuGrid(props) {
                   textAlign: "center"
                 }}
               />
-            }
+            ) : (
+              <React.Fragment>
+                <IconButton onClick={handleSearchCountry}>
+                  <Avatar style={{ backgroundColor: "#6699ff" }}>
+                    <YoutubeSearchedForIcon />
+                  </Avatar>
+                </IconButton>
+                <TypographyModel
+                  text={country}
+                  variant="h4"
+                  styles={{ color: "antiquewhite", padding: "1rem 0" }}
+                />
+                <IconAvatarModel
+                  confirmed={stateDashboard.confirmed}
+                  confirmedCounter={
+                    (props.summaryByCountry &&
+                      props.summaryByCountry.length &&
+                      props.summaryByCountry[0].confirmed.value) ||
+                    "0"
+                  }
+                  deaths={stateDashboard.death}
+                  deathCounter={
+                    (props.summaryByCountry &&
+                      props.summaryByCountry.length &&
+                      props.summaryByCountry[0].deaths.value) ||
+                    "0"
+                  }
+                  recovered={stateDashboard.recovered}
+                  recoveredCounter={
+                    (props.summaryByCountry &&
+                      props.summaryByCountry.length &&
+                      props.summaryByCountry[0].recovered.value) ||
+                    "0"
+                  }
+                />
+              </React.Fragment>
+            )}
           </Paper>
         </Grid>
         {/*Componente de Noticias Diarias */}
@@ -398,9 +446,13 @@ function MenuGrid(props) {
 }
 
 const mapStateToProps = state => ({
-  country: state.Country.country
+  country: state.Country.country,
+  summaryByCountry: state.Country.summaryByCountry
+});
+const mapDispatchToProps = dispatch => ({
+  handleClearCountry: () => dispatch(handleClearCountry())
 });
 
-const combine = compose(connect(mapStateToProps, null));
+const combine = compose(connect(mapStateToProps, mapDispatchToProps));
 
 export default withWidth({ initialWidth: "lg" })(combine(MenuGrid));

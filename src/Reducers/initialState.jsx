@@ -1,5 +1,7 @@
 export default {
   summary: {},
   language: "en",
-  country: ""
+  country: null,
+  summaryByCountry: {},
+  countryNames: {}
 };

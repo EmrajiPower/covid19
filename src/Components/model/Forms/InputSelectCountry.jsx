@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -7,23 +7,14 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 
-import { saveCountry } from "../../../Actions/Country";
+import {
+  saveCountry,
+  handleSummmaryByCountry,
+  handleLoadCountries
+} from "../../../Actions/Country";
 
 import { compose } from "recompose";
 import { connect } from "react-redux";
-
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder"
-];
 
 function InputSelect({
   formTitle,
@@ -39,10 +30,18 @@ function InputSelect({
     },
     selectStyle: {
       ...selectStyle
+    },
+    menu: {
+      height: 300,
+      textAlign: "center"
     }
   }));
 
   const classes = useStyles();
+
+  useEffect(() => {
+    props.handleLoadCountries();
+  }, []);
 
   const [country, setCountry] = React.useState([]);
 
@@ -50,8 +49,9 @@ function InputSelect({
     setCountry(event.target.value);
   };
 
-  const handleSaveCountry = event => {
-    props.saveCountry(event.target.value);
+  const handleSaveCountry = async event => {
+    await props.saveCountry(event.target.value);
+    await props.handleSummmaryByCountry(event.target.value);
   };
 
   return (
@@ -61,6 +61,7 @@ function InputSelect({
           {formTitle}
         </InputLabel>
         <Select
+          MenuProps={{ className: classes.menu }}
           labelId="mutiple-label"
           id="mutiple"
           value={country}
@@ -68,21 +69,26 @@ function InputSelect({
           onClick={handleSaveCountry}
           className={classes.selectStyle}
         >
-          {names.map(name => (
-            <MenuItem key={name} value={name}>
-              {name}
-            </MenuItem>
-          ))}
+          {props.countryNames.length &&
+            props.countryNames[0].countries.map((name, i) => (
+              <MenuItem key={i} value={name.name}>
+                {name.name}
+              </MenuItem>
+            ))}
         </Select>
       </FormControl>
     </div>
   );
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  countryNames: state.Country.countryNames
+});
 
 const mapDispatchToProps = dispatch => ({
-  saveCountry: data => dispatch(saveCountry(data))
+  saveCountry: data => dispatch(saveCountry(data)),
+  handleLoadCountries: () => dispatch(handleLoadCountries()),
+  handleSummmaryByCountry: data => dispatch(handleSummmaryByCountry(data))
 });
 
 const combine = compose(connect(mapStateToProps, mapDispatchToProps));

@@ -43,18 +43,18 @@ function IconAvatars({
     },
     orange: {
       backgroundColor: orange[500],
-      height: 30,
-      width: 30
+      height: 32,
+      width: 32
     },
     red: {
       backgroundColor: red[500],
-      height: 30,
-      width: 30
+      height: 32,
+      width: 32
     },
     green: {
       backgroundColor: "green",
-      height: 30,
-      width: 30
+      height: 32,
+      width: 32
     }
   }));
 

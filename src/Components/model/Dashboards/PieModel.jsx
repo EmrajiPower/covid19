@@ -4,9 +4,6 @@ import Plot from "react-plotly.js";
 class PieModel extends React.Component {
   render() {
     const { title, values, labels, width, height } = this.props;
-
-    console.log("classes", <Plot.layout />);
-
     return (
       <Plot
         style={{
