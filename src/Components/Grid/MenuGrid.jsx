@@ -22,6 +22,8 @@ import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 
+import moment from "moment";
+
 import { handleClearCountry } from "../../Actions/Country";
 
 const useStyles = makeStyles(theme => ({
@@ -219,11 +221,16 @@ function MenuGrid(props) {
             setStateDashboard({
               ...stateDashboard,
               confirmed: "Confirmed",
-              confirmedCounter: 25,
+              confirmedCounter:
+                (props.summary.length && props.summary[0].confirmed.value) ||
+                "...",
               recovered: "Recovered",
-              recoveredCounter: 20,
+              recoveredCounter:
+                (props.summary.length && props.summary[0].recovered.value) ||
+                "...",
               death: "Deaths",
-              deathCounter: 2
+              deathCounter:
+                (props.summary.length && props.summary[0].deaths.value) || "..."
             });
             break;
           case "es":
@@ -283,6 +290,7 @@ function MenuGrid(props) {
 
   const { country } = props;
 
+  // console.log("->", props.summary);
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -296,7 +304,8 @@ function MenuGrid(props) {
         <Grid item xs={grid}>
           <Paper className={classes.summary}>
             <PieModel
-              title={stateTitles.sumaryText}
+              title={`${stateTitles.sumaryText} ${props.summary.length &&
+                moment(props.summary[0].lastUpdate).format("L")}`}
               labels={[
                 stateDashboard.confirmed,
                 stateDashboard.death,
@@ -447,6 +456,7 @@ function MenuGrid(props) {
 
 const mapStateToProps = state => ({
   country: state.Country.country,
+  summary: state.Summary.summary,
   summaryByCountry: state.Country.summaryByCountry
 });
 const mapDispatchToProps = dispatch => ({
