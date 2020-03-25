@@ -6,7 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
+import Avatar from "@material-ui/core/Avatar";
+import Chip from "@material-ui/core/Chip";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
@@ -18,6 +19,9 @@ function CardIconsModel({
   cardContentTittle,
   cardContentText,
   cardActionsStyle,
+  confirmed,
+  deaths,
+  recovered,
   iconA,
   iconB
 }) {
@@ -33,6 +37,15 @@ function CardIconsModel({
     },
     cardActions: {
       ...cardActionsStyle
+    },
+    yellow: {
+      backgroundColor: "yellow"
+    },
+    red: {
+      backgroundColor: "red"
+    },
+    green: {
+      backgroundColor: "green"
     }
   });
 
@@ -47,17 +60,34 @@ function CardIconsModel({
           {!!iconB && (
             <img src={iconB} width={40} height={40} alt={iconA}></img>
           )}
-          <Container fixed></Container>
           <CardContent className={classes.cardContentStyles}>
             {!!cardContentTittle && (
-              <Typography gutterBottom variant="h5" component="h2">
-                {cardContentTittle}
-              </Typography>
+              <Typography variant="h5">{cardContentTittle}</Typography>
             )}
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography variant="body2" color="gray" component="p">
               {cardContentText}
             </Typography>
           </CardContent>
+          <Container fixed>
+            <Chip
+              variant="outlined"
+              size="small"
+              avatar={<Avatar className={classes.yellow}>C</Avatar>}
+              label={confirmed}
+            />
+            <Chip
+              variant="outlined"
+              size="small"
+              avatar={<Avatar className={classes.red}>D</Avatar>}
+              label={deaths}
+            />
+            <Chip
+              variant="outlined"
+              size="small"
+              avatar={<Avatar className={classes.green}>R</Avatar>}
+              label={recovered}
+            />
+          </Container>
         </CardActionArea>
       </Card>
     </React.Fragment>

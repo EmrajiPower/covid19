@@ -26,6 +26,7 @@ class PieModel extends React.Component {
             },
             marker: {
               colors: ["orange", "red", "green"]
+              // sizeref: values[0],
             },
             textinfo: "none"
           }

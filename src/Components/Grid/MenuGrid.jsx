@@ -18,6 +18,7 @@ import YoutubeSearchedForIcon from "@material-ui/icons/YoutubeSearchedFor";
 import withWidth from "@material-ui/core/withWidth";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
+import Skeleton from "@material-ui/lab/Skeleton";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
@@ -150,6 +151,9 @@ const useStyles = makeStyles(theme => ({
       height: "16rem",
       margin: "0 10%"
     }
+  },
+  skeleton: {
+    textAlign: "center"
   }
 }));
 
@@ -158,8 +162,7 @@ function MenuGrid(props) {
     logoText: "",
     sumaryText: "",
     countryText: "",
-    cardTitle: "",
-    cardContentTitle: "",
+    dailyContentTitle: "",
     cardContentText: ""
   });
 
@@ -214,9 +217,8 @@ function MenuGrid(props) {
               logoText: "State of Coronavirus",
               sumaryText: "Summary",
               countryText: "Select your Country",
-              cardTitle: "confirmedApi Daily",
-              cardContentTitle: "Api Daily",
-              cardContentText: "Here Im going to settup interesting data"
+              dailyContentTitle: "Daily Reports",
+              cardContentText: "Report Time"
             });
             setStateDashboard({
               ...stateDashboard,
@@ -239,18 +241,22 @@ function MenuGrid(props) {
               logoText: "Estado del Coronavirus",
               sumaryText: "Resumen",
               countryText: "Seleccionar tu País",
-              cardTitle: "Api Diaria",
-              cardContentTitle: "Api Diaria",
-              cardContentText: "Aquì voy a configurar datos interesantes"
+              dailyContentTitle: "Reportes Diarios",
+              cardContentText: "Hora de Reporte"
             });
             setStateDashboard({
               ...stateDashboard,
               confirmed: "Confirmados",
-              confirmedCounter: 25,
+              confirmedCounter:
+                (props.summary.length && props.summary[0].confirmed.value) ||
+                "...",
               recovered: "Recuperados",
-              recoveredCounter: 20,
+              recoveredCounter:
+                (props.summary.length && props.summary[0].recovered.value) ||
+                "...",
               death: "Muertos",
-              deathCounter: 2
+              deathCounter:
+                (props.summary.length && props.summary[0].deaths.value) || "..."
             });
             break;
           case "de":
@@ -259,18 +265,23 @@ function MenuGrid(props) {
               logoText: "Bundesstaat Coronavirus",
               sumaryText: "Zusammenfassung",
               countryText: "Land auswählen",
-              cardTitle: "Api Daily",
-              cardContentTitle: "Api Daily",
-              cardContentText: "Hier werde ich interessante Daten festlegen"
+              dailyContentTitle: "Tägliche Berichte",
+              cardContentText: "Berichtszeit"
             });
             setStateDashboard({
               ...stateDashboard,
               confirmed: "Bestätigt",
-              confirmedCounter: 25,
+              confirmedCounter:
+                (props.summary.length && props.summary[0].confirmed.value) ||
+                "...",
               death: "Todesfälle",
-              deathCounter: 2,
+              deathCounter:
+                (props.summary.length && props.summary[0].deaths.value) ||
+                "...",
               recovered: "Wiederhergestellt",
-              recoveredCounter: 20
+              recoveredCounter:
+                (props.summary.length && props.summary[0].recovered.value) ||
+                "..."
             });
             break;
           default:
@@ -290,7 +301,6 @@ function MenuGrid(props) {
 
   const { country } = props;
 
-  // console.log("->", props.summary);
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
@@ -395,58 +405,44 @@ function MenuGrid(props) {
         {/*Componente de Noticias Diarias */}
         <Grid item xs={12}>
           <Paper className={classes.daily}>
-            <CardIconsModel
-              stylesContainer={{
-                margin: "1rem 10%",
-                height: "auto"
-              }}
-              cardMediaTitle={stateTitles.cardTitle}
-              cardMediaStyles={{ height: "100%" }}
-              cardContentTittle={stateTitles.cardContentTitle}
-              cardContentText={stateTitles.cardContentText}
-              cardActionsStyle={{ backgroundColor: "#0c7b93" }}
-              iconA={IconSickeness}
-              {...props}
+            <TypographyModel
+              text={stateTitles.dailyContentTitle}
+              variant="h4"
+              styles={{ color: "antiquewhite", padding: "1rem 0" }}
             />
-            <CardIconsModel
-              stylesContainer={{
-                margin: "1rem 10%",
-                height: "auto"
-              }}
-              cardMediaTitle={stateTitles.cardTitle}
-              cardMediaStyles={{ height: "100%" }}
-              cardContentTittle={stateTitles.cardContentTitle}
-              cardContentText={stateTitles.cardContentText}
-              cardActionsStyle={{ backgroundColor: "#00a8cc" }}
-              iconB={IconHealed}
-              {...props}
-            />
-            <CardIconsModel
-              stylesContainer={{
-                margin: "1rem 10%",
-                height: "auto"
-              }}
-              cardMediaTitle={stateTitles.cardTitle}
-              cardMediaStyles={{ height: "100%" }}
-              cardContentTittle={stateTitles.cardContentTitle}
-              cardContentText={stateTitles.cardContentText}
-              cardActionsStyle={{ backgroundColor: "#0c7b93" }}
-              iconA={IconSickeness}
-              {...props}
-            />
-            <CardIconsModel
-              stylesContainer={{
-                margin: "1rem 10%",
-                height: "auto"
-              }}
-              cardMediaTitle={stateTitles.cardTitle}
-              cardMediaStyles={{ height: "100%" }}
-              cardContentTittle={stateTitles.cardContentTitle}
-              cardContentText={stateTitles.cardContentText}
-              cardActionsStyle={{ backgroundColor: "#00a8cc" }}
-              iconB={IconHealed}
-              {...props}
-            />
+            {props.summaryByDay ? (
+              props.summaryByDay.slice(0, 300).map(data => {
+                return (
+                  <CardIconsModel
+                    stylesContainer={{
+                      margin: "1rem 10%",
+                      height: "auto"
+                    }}
+                    cardMediaStyles={{ height: "100%" }}
+                    cardContentTittle={data.combinedKey}
+                    cardContentText={`${stateTitles.cardContentText} ${moment(
+                      data.lastUpdate
+                    ).format("HH:mm:ss")}`}
+                    confirmed={data.confirmed}
+                    deaths={data.deaths}
+                    recovered={data.recovered}
+                    cardActionsStyle={{
+                      backgroundColor: "#0c7b93",
+                      paddingBottom: "1%",
+                      color: "antiquewhite"
+                    }}
+                    iconA={IconSickeness}
+                    iconB={IconHealed}
+                    {...props}
+                  />
+                );
+              })
+            ) : (
+              <React.Fragment>
+                <Skeleton height={140} />
+                <Skeleton height={140} />
+              </React.Fragment>
+            )}
           </Paper>
         </Grid>
       </Grid>

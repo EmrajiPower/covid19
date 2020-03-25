@@ -1,4 +1,4 @@
-import { FETCH_SUMMARY } from "../Actions/types";
+import { FETCH_SUMMARY, FETCH_SUMMARY_BY_DAY } from "../Actions/types";
 
 import initialState from "./initialState";
 
@@ -8,6 +8,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         summary: action.payload
+      };
+    case FETCH_SUMMARY_BY_DAY:
+      return {
+        ...state,
+        summaryByDay: action.payload
       };
     default:
       return state;

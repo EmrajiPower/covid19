@@ -6,7 +6,9 @@ import InputSelectLanguage from "../model/Forms/InputSelectLanguage";
 import { compose } from "recompose";
 import { connect } from "react-redux";
 
-import { getSummary } from "../../Actions/Summary";
+import moment from "moment";
+
+import { getSummary, getSummaryByDay } from "../../Actions/Summary";
 
 function Home(props) {
   const [state, setState] = useState({
@@ -30,23 +32,33 @@ function Home(props) {
           break;
       }
     }
+    props.getSummaryByDay(
+      moment(new Date())
+        .subtract(1, "days")
+        .format("MM-DD-YYYY")
+    );
   }, [props.language]);
 
   return (
     <React.Fragment>
       <InputSelectLanguage />
-      <MenuGrid language={state.language ? state.language : "en"} />
+      <MenuGrid
+        language={state.language ? state.language : "en"}
+        summaryByDay={props.summaryByDay.length && props.summaryByDay}
+      />
     </React.Fragment>
   );
 }
 
 const mapStateToProps = state => ({
   summary: state.Summary.summary,
+  summaryByDay: state.Summary.summaryByDay,
   language: state.Language.language
 });
 
 const mapDispatchToProps = dispatch => ({
-  getSummary: () => dispatch(getSummary())
+  getSummary: () => dispatch(getSummary()),
+  getSummaryByDay: date => dispatch(getSummaryByDay(date))
 });
 
 const combine = compose(connect(mapStateToProps, mapDispatchToProps));
