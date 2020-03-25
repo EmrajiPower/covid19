@@ -411,7 +411,7 @@ function MenuGrid(props) {
               styles={{ color: "antiquewhite", padding: "1rem 0" }}
             />
             {props.summaryByDay ? (
-              props.summaryByDay.slice(0, 300).map(data => {
+              props.summaryByDay.slice(0, 100).map(data => {
                 return (
                   <CardIconsModel
                     stylesContainer={{
